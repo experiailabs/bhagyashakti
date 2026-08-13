@@ -1,0 +1,70 @@
+# BhavishyaShakti conversion improvements
+
+- [x] Convert the birth-details intake into a multi-step wizard with progress, validation, back/next controls, and a final review state.
+- [x] Add a dynamic interactive preview that switches between the actionable remedy report and calendar file views, reflecting selected objective and plan.
+- [x] Add a mobile-only sticky floating CTA that jumps users to the pricing section and remains accessible without obscuring the form.
+- [x] Verify the revised experience on desktop and mobile and run TypeScript and production build checks.
+- [x] Add a global English/Hindi toggle with translated primary landing-page content.
+- [x] Add a recent-activity toast that only renders verified purchase events from a real data source; keep the UI dormant until connected.
+- [x] Add an accessible constellation/chakra loading transition between wizard steps with reduced-motion support.
+- [x] Verify the revised experience on desktop and mobile and run TypeScript and production build checks.
+- [x] Make the preview content adapt to Wealth, Health, Career, Business, Relationships, and Education objectives in both languages.
+- [x] Improve title, meta description, canonical URL, Open Graph/Twitter metadata, structured data, crawl files, and semantic headings for Google and Bing.
+- [x] Run SEO sanity checks, responsive QA, TypeScript and production build checks.
+- [x] Add a carousel-ready section for consented success stories and verified video testimonials; keep it empty until approved content is provided.
+- [x] Add field-level real-time wizard validation with accessible error and success states.
+- [x] Add a clear visual wizard progress bar tied to completed and current steps.
+- [x] Run responsive QA and TypeScript and production build checks.
+- [x] Add a bilingual lucky-color reveal immediately after the birth-details step, with a clear belief-based guidance disclaimer.
+- [x] Populate the carousel with clearly labeled layout-review slots and non-testimonial video thumbnail placeholders; do not invent customer claims.
+- [x] Run responsive QA and TypeScript and production build checks.
+- [x] Make the 6-month plan the strongest visual recommendation and label it Most Popular in English and Hindi.
+- [x] Make calendar integration for executing remedies explicit in pricing cards, delivery copy, preview, and intake messaging.
+- [x] Run responsive QA and TypeScript and production build checks.
+- [x] Add a plan-selection checkout summary modal listing report, calendar integration, and selected-plan details.
+- [x] Add a collapsible pricing-adjacent FAQ covering remedies, calendar integration, delivery, and privacy.
+- [x] Add a smartphone visual mockup showing daily calendar reminders near the pricing table.
+- [x] Run responsive QA and TypeScript and production build checks.
+- [x] Add a localized session countdown to the checkout summary modal with transparent expiry copy.
+- [x] Run responsive QA and TypeScript and production build checks.
+- [x] Add smooth scrolling from the mobile sticky CTA to the pricing section.
+- [x] Add subtle pricing-card hover elevation and stronger 6-month Most Popular emphasis.
+- [x] Run responsive QA and TypeScript and production build checks.
+- [x] Add a restrained pulse animation to the 6-month Most Popular badge with reduced-motion support.
+- [x] Add footer sharing controls for WhatsApp and email with a graceful Web Share fallback.
+- [x] Add an accurate secure-checkout tooltip beside the checkout modal CTA.
+- [x] Add concise bilingual, shareable SEO blog posts to the landing page.
+- [x] Run responsive QA, SEO/share sanity checks, TypeScript and production build checks.
+- [x] Create individual crawlable journal pages for each article slug with page-specific canonical and social metadata.
+- [x] Add lightweight event tracking for WhatsApp/email/native share buttons and checkout CTA interactions.
+- [x] Run crawlability, metadata, analytics, responsive QA, and TypeScript and production build checks.
+- [x] Audit and refine the landing page title, meta description, canonical URL, robots directives, and social cards.
+- [x] Strengthen semantic headings, keyword-aligned copy, JSON-LD, robots.txt, and sitemap discovery signals.
+- [x] Run SEO sanity checks, responsive QA, and TypeScript and production build checks.
+- [x] Define distinct 3-, 6-, and 12-month plan positioning, cadence, and deliverables in English and Hindi.
+- [x] Apply clear comparison copy to pricing cards and the checkout summary modal while preserving the 6-month Most Popular emphasis.
+- [x] Run responsive QA and TypeScript and production build checks.
+- [x] Make the 3-, 6-, and 12-month labels larger and bolder on each pricing card.
+- [x] Preserve the 6-month Most Popular emphasis and verify the pricing stack on desktop and mobile.
+- [x] Run TypeScript and production build checks.
+- [x] Make the BhavishyaShakti header fixed and purchase-accessible while scrolling.
+- [x] Add scroll offsets so anchored sections remain clear of the fixed header.
+- [x] Verify fixed-header contrast, responsive navigation, and TypeScript/production builds.
+- [x] Add a compact mobile-only View Plans CTA inside the sticky header.
+- [x] Track sticky-header CTA clicks separately from hero CTA clicks.
+- [x] Verify mobile/desktop header layout, analytics hooks, and TypeScript/production builds.
+- [x] Add an optional inclusive gender field to the birth-details intake and review context.
+- [x] Add a gentle reduced-motion-safe pulse to the mobile sticky View Plans CTA.
+- [x] Verify validation, mobile/desktop layout, accessibility, and TypeScript/production builds.
+- [x] Move the optional gender selector into the Birth Details wizard step.
+- [x] Show gender preference in the final review summary and report-generation payload shape.
+- [x] Verify wizard flow, accessibility, responsive layout, and TypeScript/production builds.
+- [x] Render the gender selector inside the Birth Details panel directly between Name and Date of Birth.
+- [x] Verify the Birth Details step visually and rerun TypeScript/production build checks.
+- [x] Replace portal-based Gender rendering with explicit inline markup between Full Name and Date of Birth.
+- [x] Verify the exact Birth Details layout and rerun TypeScript/production build checks.
+- [x] Add a brief privacy reassurance beside the Gender selector.
+- [x] Add a smooth selected-state highlight for the chosen Gender option with reduced-motion support.
+- [x] Verify accessibility, responsive rendering, and TypeScript/production builds.
+- [x] Reinforce the BhavishyaShakti header as fixed on both web and mobile layouts.
+- [x] Verify header stacking, contrast, anchor offsets, and TypeScript/production builds at desktop and mobile widths.
