@@ -220,12 +220,51 @@ type VideoTestimonial = {
 // Local video testimonials served from /public/videos. Replace the
 // placeholder names/objectives/quotes with the real details for each clip.
 const videoTestimonials: VideoTestimonial[] = [
-  { id: "1", src: "/videos/1.mp4", name: "Customer 1", objectiveEn: "Wealth focus", objectiveHi: "धन वृद्धि", quoteEn: "Watch the full story in the video.", quoteHi: "पूरी कहानी वीडियो में देखें।" },
-  { id: "2", src: "/videos/2.mp4", name: "Customer 2", objectiveEn: "Career focus", objectiveHi: "करियर वृद्धि", quoteEn: "Watch the full story in the video.", quoteHi: "पूरी कहानी वीडियो में देखें।" },
-  { id: "3", src: "/videos/3.mp4", name: "Customer 3", objectiveEn: "Health focus", objectiveHi: "स्वास्थ्य", quoteEn: "Watch the full story in the video.", quoteHi: "पूरी कहानी वीडियो में देखें।" },
-  { id: "4", src: "/videos/4.mp4", name: "Customer 4", objectiveEn: "Relationships focus", objectiveHi: "रिश्ते", quoteEn: "Watch the full story in the video.", quoteHi: "पूरी कहानी वीडियो में देखें।" },
-  { id: "5", src: "/videos/5.mp4", name: "Customer 5", objectiveEn: "Business focus", objectiveHi: "व्यापार", quoteEn: "Watch the full story in the video.", quoteHi: "पूरी कहानी वीडियो में देखें।" },
-  { id: "6", src: "/videos/6.mp4", name: "Customer 6", objectiveEn: "Education focus", objectiveHi: "शिक्षा", quoteEn: "Watch the full story in the video.", quoteHi: "पूरी कहानी वीडियो में देखें।" },
+  {
+    id: "1",
+    src: "/videos/1.mp4",
+    name: "Gipy Singh",
+    objectiveEn: "Career focus",
+    objectiveHi: "करियर वृद्धि",
+    quoteEn: "Watch the full story in the video.",
+    quoteHi: "पूरी कहानी वीडियो में देखें।",
+  },
+  {
+    id: "2",
+    src: "/videos/2.mp4",
+    name: "Gopal Sharma",
+    objectiveEn: "Confidence focus",
+    objectiveHi: "आत्मविश्वास",
+    quoteEn: "Watch the full story in the video.",
+    quoteHi: "पूरी कहानी वीडियो में देखें।",
+  },
+  {
+    id: "3",
+    src: "/videos/3.mp4",
+    name: "Arti Gupta",
+    objectiveEn: "Career focus",
+    objectiveHi: "करियर वृद्धि",
+    quoteEn: "Watch the full story in the video.",
+    quoteHi: "पूरी कहानी वीडियो में देखें।",
+  },
+  {
+    id: "4",
+    src: "/videos/4.mp4",
+    name: "Pawan Singh",
+    objectiveEn: "Retirement & Financial Freedom",
+    objectiveHi: "रिटायरमेंट और वित्तीय स्वतंत्रता",
+    quoteEn: "Watch the full story in the video.",
+    quoteHi: "पूरी कहानी वीडियो में देखें।",
+  },
+  {
+    id: "5",
+    src: "/videos/5.mp4",
+    name: "Khusi Mittal",
+    objectiveEn: "Education focus",
+    objectiveHi: "शिक्षा",
+    quoteEn: "Watch the full story in the video.",
+    quoteHi: "पूरी कहानी वीडियो में देखें।",
+  },
 ];
 
 function VideoTestimonialCard({ lang, story, onPlay }: { lang: Lang; story: VideoTestimonial; onPlay: () => void }) {
@@ -257,7 +296,7 @@ function VideoTestimonialCard({ lang, story, onPlay }: { lang: Lang; story: Vide
           <p className="text-[9px] font-bold uppercase tracking-[0.16em] text-[#f2a85d]">
             {lang === "en" ? story.objectiveEn : story.objectiveHi}
           </p>
-         
+
           <p className="mt-1 line-clamp-1 text-xs text-[#c9b8a6]">
             {lang === "en" ? story.quoteEn : story.quoteHi}
           </p>
@@ -293,7 +332,7 @@ function VideoTestimonialCarousel({ lang }: { lang: Lang }) {
           <Carousel opts={{ align: "start", loop: true }}>
             <CarouselContent>
               {videoTestimonials.map((story) => (
-                <CarouselItem key={story.id} className="sm:basis-1/2 lg:basis-1/4">
+                <CarouselItem key={story.id} className="sm:basis-1/2 lg:basis-1/3">
                   <VideoTestimonialCard lang={lang} story={story} onPlay={() => setActive(story)} />
                 </CarouselItem>
               ))}
@@ -306,31 +345,43 @@ function VideoTestimonialCarousel({ lang }: { lang: Lang }) {
 
       {active && (
         <div
-          className="fixed inset-0 z-50 grid place-items-center bg-[#0a0908]/90 p-5"
+          className="fixed inset-0 z-[999] flex items-center justify-center bg-black/80 p-4 mt-8"
           role="dialog"
           aria-modal="true"
           onClick={() => setActive(null)}
         >
           <div
-            className="relative w-full max-w-sm border border-[#f28c28]/35 bg-[#120e0b] p-3"
+            className="relative w-full max-w-2xl overflow-hidden rounded-xl border border-[#f28c28]/30 bg-[#0a0908] shadow-2xl"
             onClick={(event) => event.stopPropagation()}
           >
             <button
               type="button"
               onClick={() => setActive(null)}
-              className="absolute right-3 top-3 z-10 grid h-9 w-9 place-items-center border border-[#f28c28]/40 bg-[#0a0908]/70 text-[#f28c28]"
+              className="absolute right-3 top-3 z-[1000] grid h-10 w-10 place-items-center rounded-full border border-[#f28c28]/40 bg-[#0a0908]/70 text-[#f28c28]"
               aria-label={lang === "en" ? "Close video" : "वीडियो बंद करें"}
             >
-              <X className="h-4 w-4" />
+              <X className="h-5 w-5" />
             </button>
-            <video controls autoPlay playsInline className="aspect-[9/13] w-full bg-black" src={active.src}>
-              {lang === "en" ? "Your browser does not support video." : "आपका ब्राउज़र वीडियो सपोर्ट नहीं करता।"}
+
+            <video
+              controls
+              autoPlay
+              playsInline
+              className="aspect-[9/16] max-h-[90vh] w-full bg-black object-contain"
+              src={active.src}
+            >
+              {lang === "en"
+                ? "Your browser does not support video."
+                : "आपका ब्राउज़र वीडियो सपोर्ट नहीं करता।"}
             </video>
-            <div className="mt-3 px-1">
-              <p className="text-[10px] font-bold uppercase tracking-[0.14em] text-[#f2a85d]">
+
+            <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#0a0908]/90 to-transparent p-5">
+              <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#f2a85d]">
                 {lang === "en" ? active.objectiveEn : active.objectiveHi}
               </p>
-              <h3 className="bs-serif mt-1 text-2xl text-[#f7ede0]">{active.name}</h3>
+              <h3 className="bs-serif mt-1 text-2xl text-[#f7ede0]">
+                {active.name}
+              </h3>
             </div>
           </div>
         </div>
@@ -411,9 +462,8 @@ function CalendarCard({
         {profile.calendar.map((event, index) => (
           <div key={event} className="flex items-center gap-3 border-b border-[#f28c28]/10 pb-3">
             <span
-              className={`grid h-7 w-7 place-items-center text-[10px] font-bold ${
-                index === 1 ? "bg-[#f28c28] text-[#0a0908]" : "border border-[#f28c28]/30 text-[#f2a85d]"
-              }`}
+              className={`grid h-7 w-7 place-items-center text-[10px] font-bold ${index === 1 ? "bg-[#f28c28] text-[#0a0908]" : "border border-[#f28c28]/30 text-[#f2a85d]"
+                }`}
             >
               0{index + 1}
             </span>
