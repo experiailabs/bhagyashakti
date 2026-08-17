@@ -207,24 +207,137 @@ function FieldFeedback({ error, valid, lang }: { error: string; valid: boolean; 
 function ActivityToast({ lang }: { lang: Lang }) { const [index, setIndex] = useState(0); useEffect(() => { if (!verifiedPurchaseEvents.length) return; const timer = window.setInterval(() => setIndex((value) => (value + 1) % verifiedPurchaseEvents.length), 9000); return () => window.clearInterval(timer); }, []); if (!verifiedPurchaseEvents.length) return null; const event = verifiedPurchaseEvents[index]; return <div className="activity-toast" role="status"><span className="activity-icon"><Check className="h-4 w-4" /></span><div><p className="text-[10px] font-bold uppercase tracking-[0.14em] text-[#f28c28]">{lang === "en" ? "Verified recent purchase" : "सत्यापित हाल की खरीद"}</p><p className="mt-1 text-xs text-[#f7ede0]">{event.city} · {event.plan}</p><p className="mt-1 text-[10px] text-[#8f8174]">{event.occurredAt}</p></div></div>; }
 function AstroLoader({ lang }: { lang: Lang }) { return <div className="astro-loader" role="status" aria-live="polite"><div className="chakra-stage"><span className="chakra-ring ring-one" /><span className="chakra-ring ring-two" /><span className="chakra-core"><Sun className="h-5 w-5" /></span><i className="constellation-dot dot-one" /><i className="constellation-dot dot-two" /><i className="constellation-dot dot-three" /></div><p className="mt-5 text-xs font-semibold uppercase tracking-[0.16em] text-[#f2a85d]">{lang === "en" ? "Aligning your next step" : "आपके अगले कदम के संकेत जोड़ रहे हैं"}</p><p className="mt-2 text-[10px] text-[#8f8174]">{lang === "en" ? "One moment · आपकी दिशा खुल रही है" : "एक क्षण · your direction is opening"}</p></div>; }
 
-type VerifiedStory = { id: string; name: string; objective: string; excerpt: string; videoUrl?: string; consentLabel: string };
-// Populate only with verified, consented customer stories and approved video URLs before launch.
-const verifiedStories: VerifiedStory[] = [];
-function VerifiedStoryCarousel({ lang }: { lang: Lang }) { const [video, setVideo] = useState<string | null>(null); const emptyCopy = lang === "en" ? "Verified customer journeys and approved video testimonials will appear here once consented stories are connected." : "सहमति प्राप्त सत्यापित ग्राहक यात्राएँ और स्वीकृत वीडियो प्रशंसापत्र जुड़ने के बाद यहाँ दिखाई देंगे।"; return <section id="stories" className="border-y border-[#f28c28]/10 bg-[#f4e8da] py-24 text-[#19120f] lg:py-28"><div className="bs-shell"><div className="grid gap-10 lg:grid-cols-[0.72fr_1.28fr] lg:items-end"><div><div className="mb-5 flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.22em] text-[#a34f13]"><span className="h-px w-8 bg-[#a34f13]" /> {lang === "en" ? "Verified journeys · सत्यापित यात्राएँ" : "सत्यापित यात्राएँ · verified journeys"}</div><h2 className="bs-serif max-w-[540px] text-5xl font-semibold leading-[0.95] sm:text-6xl">{lang === "en" ? "Trust is built in the open." : "विश्वास स्पष्टता से बनता है।"}</h2></div><p className="max-w-[530px] text-sm leading-7 text-[#775f4f]">{lang === "en" ? "A dedicated space for real people, real context, and consented video stories—never invented proof. Every story will show the objective, the practice, and the person’s own words." : "वास्तविक लोगों, वास्तविक संदर्भ और सहमति वाले वीडियो अनुभवों के लिए एक समर्पित स्थान—कभी गढ़ा हुआ प्रमाण नहीं। हर कहानी में उद्देश्य, अभ्यास और व्यक्ति के अपने शब्द होंगे।"}</p></div><div className="relative mt-12"><Carousel opts={{ align: "start", loop: verifiedStories.length > 1 }}><CarouselContent>{verifiedStories.length ? verifiedStories.map((story) => <CarouselItem key={story.id} className="md:basis-1/2"><article className="h-full border border-[#be7e4b]/25 bg-[#f8efe5] p-6"><div className="flex items-start justify-between gap-4"><div className="grid h-11 w-11 place-items-center border border-[#be7e4b]/40 text-[#a34f13]"><Sparkles className="h-5 w-5" /></div><span className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#b06a39]">{lang === "en" ? "verified story" : "सत्यापित कहानी"}</span></div><p className="mt-8 text-[10px] font-bold uppercase tracking-[0.16em] text-[#a34f13]">{story.objective}</p><h3 className="bs-serif mt-2 text-3xl font-semibold">{story.name}</h3><p className="mt-5 text-sm leading-6 text-[#775f4f]">“{story.excerpt}”</p><p className="mt-5 text-[10px] uppercase tracking-[0.12em] text-[#a34f13]">{story.consentLabel}</p>{story.videoUrl && <button type="button" onClick={() => setVideo(story.videoUrl ?? null)} className="mt-6 inline-flex items-center gap-2 border border-[#a34f13] px-4 py-3 text-xs font-bold text-[#a34f13]"><Play className="h-3.5 w-3.5 fill-current" /> {lang === "en" ? "Watch video story" : "वीडियो अनुभव देखें"}</button>}</article></CarouselItem>) : <CarouselItem><div className="border border-dashed border-[#be7e4b]/50 bg-[#f8efe5] p-8 sm:p-12"><div className="grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-center"><div className="grid aspect-video place-items-center border border-[#be7e4b]/30 bg-[radial-gradient(circle_at_50%_50%,rgba(188,94,20,0.16),transparent_44%),#f4e8da]"><div className="grid h-16 w-16 place-items-center rounded-full border border-[#a34f13]/40 text-[#a34f13]"><Play className="ml-1 h-6 w-6" /></div></div><div><p className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#a34f13]">{lang === "en" ? "Content slot · ready for proof" : "कंटेंट स्लॉट · प्रमाण के लिए तैयार"}</p><h3 className="bs-serif mt-3 text-4xl font-semibold">{lang === "en" ? "Your story belongs here." : "आपकी कहानी यहाँ होगी।"}</h3><p className="mt-4 max-w-[480px] text-sm leading-7 text-[#775f4f]">{emptyCopy}</p><div className="mt-6 flex flex-wrap gap-2 text-[10px] font-bold uppercase tracking-[0.13em] text-[#a34f13]"><span className="border border-[#be7e4b]/40 px-3 py-2">{lang === "en" ? "Goal" : "उद्देश्य"}</span><span className="border border-[#be7e4b]/40 px-3 py-2">{lang === "en" ? "Practice" : "अभ्यास"}</span><span className="border border-[#be7e4b]/40 px-3 py-2">{lang === "en" ? "Own words" : "अपने शब्द"}</span></div></div></div></div></CarouselItem>}</CarouselContent><CarouselPrevious className="-left-4 border-[#a34f13]/35 bg-[#f8efe5] text-[#a34f13]" /><CarouselNext className="-right-4 border-[#a34f13]/35 bg-[#f8efe5] text-[#a34f13]" /></Carousel></div></div>{video && <div className="fixed inset-0 z-50 grid place-items-center bg-[#0a0908]/85 p-5" role="dialog" aria-modal="true"><div className="relative w-full max-w-3xl border border-[#f28c28]/35 bg-[#120e0b] p-4"><button type="button" onClick={() => setVideo(null)} className="absolute right-3 top-3 z-10 grid h-9 w-9 place-items-center border border-[#f28c28]/40 text-[#f28c28]" aria-label={lang === "en" ? "Close video" : "वीडियो बंद करें"}><X className="h-4 w-4" /></button><video controls className="aspect-video w-full" src={video}>{lang === "en" ? "Your browser does not support video." : "आपका ब्राउज़र वीडियो सपोर्ट नहीं करता।"}</video></div></div>}</section>; }
+type VideoTestimonial = {
+  id: string;
+  src: string;
+  name: string;
+  objectiveEn: string;
+  objectiveHi: string;
+  quoteEn: string;
+  quoteHi: string;
+};
 
-const reviewSlots = {
-  en: [
-    { objective: "Wealth focus · धन वृद्धि", title: "Verified story title pending", status: "Consent + approved quote required", video: "Video thumbnail slot" },
-    { objective: "Career focus · करियर वृद्धि", title: "Verified story title pending", status: "Consent + approved quote required", video: "Video thumbnail slot" },
-    { objective: "Health focus · स्वास्थ्य", title: "Verified story title pending", status: "Consent + approved quote required", video: "Video thumbnail slot" },
-  ],
-  hi: [
-    { objective: "धन वृद्धि · Wealth focus", title: "सत्यापित कहानी का शीर्षक लंबित", status: "सहमति + स्वीकृत उद्धरण आवश्यक", video: "वीडियो थंबनेल स्लॉट" },
-    { objective: "करियर वृद्धि · Career focus", title: "सत्यापित कहानी का शीर्षक लंबित", status: "सहमति + स्वीकृत उद्धरण आवश्यक", video: "वीडियो थंबनेल स्लॉट" },
-    { objective: "स्वास्थ्य · Health focus", title: "सत्यापित कहानी का शीर्षक लंबित", status: "सहमति + स्वीकृत उद्धरण आवश्यक", video: "वीडियो थंबनेल स्लॉट" },
-  ],
-} as const;
-function ReviewableStoryCarousel({ lang }: { lang: Lang }) { const slots = reviewSlots[lang]; return <section id="stories" className="border-y border-[#f28c28]/10 bg-[#f4e8da] py-24 text-[#19120f] lg:py-28"><div className="bs-shell"><div className="grid gap-10 lg:grid-cols-[0.72fr_1.28fr] lg:items-end"><div><div className="mb-5 flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.22em] text-[#a34f13]"><span className="h-px w-8 bg-[#a34f13]" /> {lang === "en" ? "Trust layout preview · not live testimonials" : "विश्वास लेआउट झलक · लाइव प्रशंसापत्र नहीं"}</div><h2 className="bs-serif max-w-[540px] text-5xl font-semibold leading-[0.95] sm:text-6xl">{lang === "en" ? "Trust is built in the open." : "विश्वास स्पष्टता से बनता है।"}</h2></div><p className="max-w-[530px] text-sm leading-7 text-[#775f4f]">{lang === "en" ? "Review the future carousel layout below. These are content slots only; approved customer words, consent details, and real video URLs must be added before publishing." : "नीचे भविष्य के कैरोसेल का लेआउट देखें। ये सिर्फ कंटेंट स्लॉट हैं; प्रकाशित करने से पहले स्वीकृत ग्राहक शब्द, सहमति विवरण और वास्तविक वीडियो URL जोड़ें।"}</p></div><div className="relative mt-12"><Carousel opts={{ align: "start", loop: true }}><CarouselContent>{slots.map((slot) => <CarouselItem key={slot.objective} className="md:basis-1/2 lg:basis-1/3"><article className="h-full border border-[#be7e4b]/25 bg-[#f8efe5] p-5"><div className="relative grid aspect-video place-items-center border border-[#be7e4b]/35 bg-[radial-gradient(circle_at_50%_50%,rgba(188,94,20,0.16),transparent_44%),#f4e8da]"><div className="grid h-12 w-12 place-items-center rounded-full border border-[#a34f13]/45 text-[#a34f13]"><Play className="ml-1 h-5 w-5" /></div><span className="absolute bottom-2 left-2 border border-[#be7e4b]/40 bg-[#f8efe5]/90 px-2 py-1 text-[9px] font-bold uppercase tracking-[0.12em] text-[#a34f13]">{slot.video}</span></div><p className="mt-5 text-[9px] font-bold uppercase tracking-[0.16em] text-[#a34f13]">{lang === "en" ? "layout preview · no claim" : "लेआउट झलक · कोई दावा नहीं"}</p><p className="mt-3 text-[10px] font-bold uppercase tracking-[0.14em] text-[#b06a39]">{slot.objective}</p><h3 className="bs-serif mt-2 text-2xl font-semibold">{slot.title}</h3><p className="mt-4 text-sm leading-6 text-[#775f4f]">{slot.status}</p><div className="mt-5 flex flex-wrap gap-2 text-[9px] font-bold uppercase tracking-[0.1em] text-[#a34f13]"><span className="border border-[#be7e4b]/40 px-2 py-1">{lang === "en" ? "Goal" : "उद्देश्य"}</span><span className="border border-[#be7e4b]/40 px-2 py-1">{lang === "en" ? "Practice" : "अभ्यास"}</span><span className="border border-[#be7e4b]/40 px-2 py-1">{lang === "en" ? "Own words" : "अपने शब्द"}</span></div></article></CarouselItem>)}</CarouselContent><CarouselPrevious className="-left-4 border-[#a34f13]/35 bg-[#f8efe5] text-[#a34f13]" /><CarouselNext className="-right-4 border-[#a34f13]/35 bg-[#f8efe5] text-[#a34f13]" /></Carousel></div></div></section>; }
+// Local video testimonials served from /public/videos. Replace the
+// placeholder names/objectives/quotes with the real details for each clip.
+const videoTestimonials: VideoTestimonial[] = [
+  { id: "1", src: "/videos/1.mp4", name: "Customer 1", objectiveEn: "Wealth focus", objectiveHi: "धन वृद्धि", quoteEn: "Watch the full story in the video.", quoteHi: "पूरी कहानी वीडियो में देखें।" },
+  { id: "2", src: "/videos/2.mp4", name: "Customer 2", objectiveEn: "Career focus", objectiveHi: "करियर वृद्धि", quoteEn: "Watch the full story in the video.", quoteHi: "पूरी कहानी वीडियो में देखें।" },
+  { id: "3", src: "/videos/3.mp4", name: "Customer 3", objectiveEn: "Health focus", objectiveHi: "स्वास्थ्य", quoteEn: "Watch the full story in the video.", quoteHi: "पूरी कहानी वीडियो में देखें।" },
+  { id: "4", src: "/videos/4.mp4", name: "Customer 4", objectiveEn: "Relationships focus", objectiveHi: "रिश्ते", quoteEn: "Watch the full story in the video.", quoteHi: "पूरी कहानी वीडियो में देखें।" },
+  { id: "5", src: "/videos/5.mp4", name: "Customer 5", objectiveEn: "Business focus", objectiveHi: "व्यापार", quoteEn: "Watch the full story in the video.", quoteHi: "पूरी कहानी वीडियो में देखें।" },
+  { id: "6", src: "/videos/6.mp4", name: "Customer 6", objectiveEn: "Education focus", objectiveHi: "शिक्षा", quoteEn: "Watch the full story in the video.", quoteHi: "पूरी कहानी वीडियो में देखें।" },
+];
+
+function VideoTestimonialCard({ lang, story, onPlay }: { lang: Lang; story: VideoTestimonial; onPlay: () => void }) {
+  return (
+    <article className="group relative h-full overflow-hidden border border-[#be7e4b]/25 bg-[#100d0b]">
+      <button
+        type="button"
+        onClick={onPlay}
+        className="relative block aspect-[9/13] w-full overflow-hidden"
+        aria-label={lang === "en" ? `Play video story: ${story.name}` : `वीडियो कहानी चलाएं: ${story.name}`}
+      >
+        <video
+          src={`${story.src}#t=0.5`}
+          muted
+          playsInline
+          preload="metadata"
+          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0a0908] via-[#0a0908]/10 to-transparent" />
+        <div className="absolute inset-0 grid place-items-center">
+          <span className="grid h-14 w-14 place-items-center rounded-full border border-[#f28c28]/60 bg-[#0a0908]/70 text-[#f28c28] backdrop-blur-sm transition-transform duration-300 group-hover:scale-110 group-hover:bg-[#f28c28] group-hover:text-[#0a0908]">
+            <Play className="ml-1 h-5 w-5 fill-current" />
+          </span>
+        </div>
+        <span className="absolute left-3 top-3 flex items-center gap-1.5 border border-[#f28c28]/40 bg-[#0a0908]/75 px-2 py-1 text-[9px] font-bold uppercase tracking-[0.14em] text-[#f2a85d] backdrop-blur-sm">
+          <Sparkles className="h-3 w-3" /> {lang === "en" ? "Video story" : "वीडियो कहानी"}
+        </span>
+        <div className="absolute inset-x-0 bottom-0 p-4 text-left">
+          <p className="text-[9px] font-bold uppercase tracking-[0.16em] text-[#f2a85d]">
+            {lang === "en" ? story.objectiveEn : story.objectiveHi}
+          </p>
+         
+          <p className="mt-1 line-clamp-1 text-xs text-[#c9b8a6]">
+            {lang === "en" ? story.quoteEn : story.quoteHi}
+          </p>
+        </div>
+      </button>
+    </article>
+  );
+}
+
+function VideoTestimonialCarousel({ lang }: { lang: Lang }) {
+  const [active, setActive] = useState<VideoTestimonial | null>(null);
+
+  return (
+    <section id="stories" className="border-y border-[#f28c28]/10 bg-[#0e0c0b] py-24 lg:py-28">
+      <div className="bs-shell">
+        <div className="grid gap-10 lg:grid-cols-[0.72fr_1.28fr] lg:items-end">
+          <div>
+            <div className="eyebrow">
+              <span /> {lang === "en" ? "Verified journeys · सत्यापित यात्राएँ" : "सत्यापित यात्राएँ · verified journeys"}
+            </div>
+            <h2 className="bs-serif max-w-[540px] text-5xl font-semibold leading-[0.95] sm:text-6xl">
+              {lang === "en" ? "Trust is built in the open." : "विश्वास स्पष्टता से बनता है।"}
+            </h2>
+          </div>
+          <p className="max-w-[530px] text-sm leading-7 text-[#a79787]">
+            {lang === "en"
+              ? "Real people, real context, in their own words."
+              : "वास्तविक लोग, वास्तविक संदर्भ, अपने ही शब्दों में।"}
+          </p>
+        </div>
+
+        <div className="relative mt-12">
+          <Carousel opts={{ align: "start", loop: true }}>
+            <CarouselContent>
+              {videoTestimonials.map((story) => (
+                <CarouselItem key={story.id} className="sm:basis-1/2 lg:basis-1/4">
+                  <VideoTestimonialCard lang={lang} story={story} onPlay={() => setActive(story)} />
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious className="-left-4 border-[#a34f13]/35 bg-[#f8efe5] text-[#a34f13]" />
+            <CarouselNext className="-right-4 border-[#a34f13]/35 bg-[#f8efe5] text-[#a34f13]" />
+          </Carousel>
+        </div>
+      </div>
+
+      {active && (
+        <div
+          className="fixed inset-0 z-50 grid place-items-center bg-[#0a0908]/90 p-5"
+          role="dialog"
+          aria-modal="true"
+          onClick={() => setActive(null)}
+        >
+          <div
+            className="relative w-full max-w-sm border border-[#f28c28]/35 bg-[#120e0b] p-3"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <button
+              type="button"
+              onClick={() => setActive(null)}
+              className="absolute right-3 top-3 z-10 grid h-9 w-9 place-items-center border border-[#f28c28]/40 bg-[#0a0908]/70 text-[#f28c28]"
+              aria-label={lang === "en" ? "Close video" : "वीडियो बंद करें"}
+            >
+              <X className="h-4 w-4" />
+            </button>
+            <video controls autoPlay playsInline className="aspect-[9/13] w-full bg-black" src={active.src}>
+              {lang === "en" ? "Your browser does not support video." : "आपका ब्राउज़र वीडियो सपोर्ट नहीं करता।"}
+            </video>
+            <div className="mt-3 px-1">
+              <p className="text-[10px] font-bold uppercase tracking-[0.14em] text-[#f2a85d]">
+                {lang === "en" ? active.objectiveEn : active.objectiveHi}
+              </p>
+              <h3 className="bs-serif mt-1 text-2xl text-[#f7ede0]">{active.name}</h3>
+            </div>
+          </div>
+        </div>
+      )}
+    </section>
+  );
+}
 
 function ReportCard({ lang, profile }: { lang: Lang; profile: (typeof objectiveProfiles)["career"]["en"] }) {
   const steps =
@@ -522,7 +635,7 @@ export default function Home() {
       <section id="how-it-works" className="bs-shell py-24 lg:py-32"><div className="grid gap-12 lg:grid-cols-[0.75fr_1.25fr] lg:gap-24"><div className="lg:sticky lg:top-24 lg:h-fit"><div className="eyebrow"><span /> {l.ideaKicker}</div><h2 className="bs-serif max-w-[440px] text-5xl font-semibold leading-[0.95] sm:text-6xl">{l.ideaTitle}</h2><p className="mt-6 max-w-[400px] text-sm leading-7 text-[#a79787]">{l.ideaBody}</p><button type="button" onClick={() => go("intake")} className="mt-8 inline-flex items-center gap-2 border-b border-[#f28c28] pb-2 text-sm font-semibold text-[#f28c28]">{l.build} <ArrowRight className="h-4 w-4" /></button></div><div className="relative space-y-5">{ritualSteps[lang].map(({ num, title, body, Icon }, index) => <div key={num} className="relative flex gap-6 border border-[#f28c28]/15 bg-[#110e0c]/80 p-6" style={{ marginLeft: index % 2 ? "34px" : "0" }}><span className="grid h-9 w-9 shrink-0 place-items-center border border-[#f28c28]/45 bg-[#0a0908] text-xs font-bold text-[#f28c28]">{num}</span><div><div className="mb-3 flex items-center gap-2 text-[#f28c28]"><Icon className="h-4 w-4" /><span className="text-[10px] font-semibold uppercase tracking-[0.18em]">{l.ritual}</span></div><h3 className="bs-serif text-3xl font-semibold">{title}</h3><p className="mt-4 max-w-[470px] text-sm leading-6 text-[#a79787]">{body}</p></div></div>)}</div></div></section>
       <section id="frameworks" className="border-y border-[#f28c28]/10 bg-[#0e0c0b] py-24 lg:py-28"><div className="bs-shell"><div className="grid gap-10 lg:grid-cols-[0.65fr_1.35fr] lg:items-end"><div><div className="eyebrow"><span /> {l.lensesKicker}</div><h2 className="bs-serif max-w-[480px] text-5xl font-semibold leading-[0.96] sm:text-6xl">{l.lensesTitle}</h2></div><p className="max-w-[520px] text-sm leading-7 text-[#a79787]">{l.lensesBody}</p></div><div className="mt-12 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">{frameworks.map(({ id, icon: Icon, en, hi }) => { const pair = lang === "en" ? en : hi; return <button type="button" key={id} onClick={() => toggle(id)} className={`min-h-[156px] border p-5 text-left transition-all ${chosen[id] ? "border-[#f28c28] bg-[#1a120d] shadow-[inset_3px_0_0_#f28c28]" : "border-[#f28c28]/15 bg-[#130f0d] hover:border-[#f28c28]/45"}`}><div className="mb-5 flex items-center justify-between"><span className={`grid h-9 w-9 place-items-center border ${chosen[id] ? "border-[#f28c28] bg-[#f28c28] text-[#0a0908]" : "border-[#f28c28]/25 text-[#c9863b]"}`}><Icon className="h-4 w-4" /></span>{chosen[id] && <Check className="h-4 w-4 text-[#f28c28]" />}</div><h3 className="text-sm font-semibold">{pair[0]}</h3><p className="mt-1 text-xs text-[#c9863b]">{pair[1]}</p><p className="mt-3 text-xs leading-5 text-[#8f8174]">{pair[2]}</p></button>; })}</div><div className="mt-6 flex items-center gap-2 text-[11px] text-[#8f8174]"><Sparkles className="h-3.5 w-3.5 text-[#f28c28]" /> {lenses} {l.selected}</div></div></section>
       <section className="bs-shell py-24 lg:py-32"><div className="grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:gap-24"><div className="relative aspect-square overflow-hidden border border-[#f28c28]/25 bg-[radial-gradient(circle_at_50%_38%,rgba(242,140,40,0.28),transparent_20%),linear-gradient(140deg,#22170f,#0d0b0a)]"><div className="absolute left-1/2 top-[34%] h-28 w-28 -translate-x-1/2 rounded-full border border-[#f28c28]/30 bg-[#20130b] shadow-[0_0_70px_rgba(242,140,40,0.28)]" /><div className="absolute left-1/2 top-[40%] h-11 w-11 -translate-x-1/2 rounded-full bg-[#f28c28] shadow-[0_0_30px_rgba(242,140,40,0.75)]" /><div className="absolute bottom-[22%] left-1/2 h-16 w-28 -translate-x-1/2 border border-[#d8b080]/45 bg-[#6c4329]/40" /><div className="absolute bottom-[13%] left-[13%] right-[13%] grid grid-cols-7 gap-1 border-t border-[#f28c28]/25 pt-3">{Array.from({ length: 7 }).map((_, i) => <span key={i} className={`h-1.5 ${i === 2 || i === 5 ? "bg-[#f28c28]" : "bg-[#f28c28]/20"}`} />)}</div><div className="absolute inset-0 bg-gradient-to-t from-[#0a0908]/95 via-transparent to-transparent" /><div className="absolute bottom-8 left-8 right-8"><p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#f28c28]">{l.practiceKicker}</p><p className="bs-serif mt-2 max-w-[330px] text-3xl font-semibold leading-none">{l.practiceTitle}</p></div></div><div><div className="eyebrow"><span /> {l.practiceKicker}</div><h2 className="bs-serif text-5xl font-semibold leading-[0.95] sm:text-6xl">{l.practiceTitle}</h2><p className="mt-6 text-sm leading-7 text-[#a79787]">{l.practiceBody}</p><div className="mt-8 space-y-4">{l.practiceItems.map((item) => <div key={item} className="flex items-start gap-3 border-b border-[#f28c28]/10 pb-4 text-sm text-[#d8c8b7]"><Check className="mt-0.5 h-4 w-4 shrink-0 text-[#f28c28]" /> {item}</div>)}</div><div className="mt-8 flex items-center gap-3 text-xs text-[#8f8174]"><LockKeyhole className="h-4 w-4 text-[#f28c28]" /> {l.private}</div></div></div></section>
-      <ReviewableStoryCarousel lang={lang} />
+      <VideoTestimonialCarousel lang={lang} />
       <section id="plans" className="bs-shell scroll-mt-24 py-24 lg:py-32"><div className="flex flex-col justify-between gap-8 md:flex-row md:items-end"><div><div className="eyebrow"><span /> {l.planKicker}</div><h2 className="bs-serif text-5xl font-semibold leading-[0.95] sm:text-6xl">{l.planTitle}</h2></div><p className="max-w-[350px] text-sm leading-6 text-[#a79787]">{l.planBody}</p></div><div className="mt-12 grid gap-4 lg:grid-cols-3">{plans.map((item) => { const pair = item[lang]; return <button type="button" key={item.id} onClick={() => { trackEvent("plan_select", { plan: item.id, language: lang }); setPlanId(item.id); setCheckoutOpen(true); }} className={`relative border p-7 text-left transition-all duration-200 hover:-translate-y-1 focus-visible:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f28c28] ${item.id === "6" ? "scale-[1.02] border-[#f28c28]/70 shadow-[0_18px_50px_rgba(242,140,40,0.12)] hover:-translate-y-2 hover:border-[#f28c28] hover:shadow-[0_24px_70px_rgba(242,140,40,0.22)]" : "hover:border-[#f28c28]/70 hover:shadow-[0_18px_45px_rgba(242,140,40,0.12)]"} ${planId === item.id ? "bg-[#1a120d]" : "bg-[#110e0c] hover:bg-[#17110d]"}`}><div className="flex items-start justify-between gap-4"><div><p className="text-2xl font-black leading-none tracking-[0.12em] text-[#f28c28] sm:text-3xl">{item.months} <span className="text-sm font-bold uppercase tracking-[0.16em] text-[#f2a85d] sm:text-base">{lang === "en" ? "month path" : "महीने की योजना"}</span></p><h3 className="bs-serif mt-3 text-4xl font-semibold">{pair[0]}</h3><p className="mt-1 text-xs text-[#c9863b]">{pair[1]}</p></div>{item.popular && <span className="popular-pulse border border-[#f28c28] bg-[#f28c28] px-2 py-1 text-[9px] font-bold uppercase tracking-[0.12em] text-[#0a0908]">{lang === "en" ? "Most Popular" : "सबसे लोकप्रिय"}</span>}</div><p className="mt-6 min-h-[48px] text-sm leading-6 text-[#a79787]">{pair[2]}</p><div className="mt-8 flex items-end gap-3"><span className="bs-serif text-5xl font-semibold text-[#f28c28]">₹{item.price}</span><span className="mb-2 text-sm text-[#7f746a] line-through">₹{item.old}</span></div><div className="mt-6 flex items-center justify-between border-t border-[#f28c28]/15 pt-5 text-xs"><span className="text-[#c6b6a5]">{item.months} {lang === "en" ? "months + calendar integration" : "महीने + कैलेंडर इंटीग्रेशन"}</span><span className={`grid h-7 w-7 place-items-center border ${planId === item.id ? "border-[#f28c28] bg-[#f28c28] text-[#0a0908]" : "border-[#5c4d40] text-transparent"}`}><Check className="h-3.5 w-3.5" /></span></div></button>; })}</div><p className="mt-5 text-center text-[11px] text-[#807569]">{l.noPromises}</p></section>
       <CalendarMockup lang={lang} />
       <PricingFAQ lang={lang} />
