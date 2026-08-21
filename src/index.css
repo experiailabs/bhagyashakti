@@ -192,3 +192,8 @@
 .min-h-screen > header { position: fixed; inset: 0 0 auto; z-index: 50; width: 100%; border-bottom-color: rgba(242, 140, 40, 0.2); background: rgba(10, 9, 8, 0.95); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.28); backdrop-filter: blur(18px); }
 .min-h-screen > main { padding-top: 76px; }
 .min-h-screen main [id] { scroll-margin-top: 92px; }
+
+
+.chnagedcode{
+  color: red !important;
+}
